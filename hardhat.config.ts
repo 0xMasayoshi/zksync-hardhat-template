@@ -44,15 +44,38 @@ const config: HardhatUserConfig = {
     compilerSource: "binary",
     settings: {},
   },
-  defaultNetwork: "zkSyncTestnet",
+  defaultNetwork: "zksync-era",
   networks: {
     hardhat: {
       zksync: false,
     },
-    zkSyncTestnet,
+    'zksync-era': {
+      url: 'https://mainnet.era.zksync.io', // URL of the zkSync network RPC
+      ethNetwork: 'https://eth.llamarpc.com', // Can also be the RPC URL of the Ethereum network (e.g. `https://goerli.infura.io/v3/<API_KEY>`)
+      zksync: true,
+    },
   },
   solidity: {
-    version: "0.8.17",
+    compilers: [
+      {
+        version: '0.8.10',
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 10000000,
+          },
+        },
+      },
+      {
+        version: '0.6.12',
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 10000000,
+          },
+        },
+      },
+    ],
   },
   // PLUGINS CONFIG
   namedAccounts: {
